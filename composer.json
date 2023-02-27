@@ -1,0 +1,38 @@
+{
+  "name": "esas/cmsgate-buynow-epos",
+  "description": "Cmsgate BuyNow bridge for Epos",
+  "keywords": [
+    "cmsgate",
+    "esas",
+    "payment gateway",
+    "buynow",
+    "epos",
+    "bridge",
+    "erip",
+    "api"
+  ],
+  "require": {
+    "php": ">= 5.6.0",
+    "esas/cmsgate-epos-lib": "~v1.17.5",
+    "esas/cmsgate-buynow-lib": "~v1.18.0",
+    "esas/cmsgate-core": "~v1.17.13",
+    "ext-pdo": "*",
+    "ext-json": "*"
+  },
+  "authors": [
+    {
+      "name": "esas",
+      "email": "support@hutkigrosh.by",
+      "homepage": "https://hutkigrosh.by"
+    }
+  ],
+  "config": {
+    "vendor-dir": "src/cmsgate-buynow-epos/vendor"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Esas\\Epos\\": ""
+    }
+  }
+}
