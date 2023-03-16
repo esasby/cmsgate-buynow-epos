@@ -14,8 +14,8 @@
   "require": {
     "php": ">= 5.6.0",
     "esas/cmsgate-epos-lib": "~v1.17.5",
-    "esas/cmsgate-buynow-lib": "~v1.18.0",
-    "esas/cmsgate-core": "~v1.17.13",
+    "esas/cmsgate-buynow-lib": "~v1.18.2",
+    "esas/cmsgate-core": "~v1.17.15",
     "ext-pdo": "*",
     "ext-json": "*"
   },
