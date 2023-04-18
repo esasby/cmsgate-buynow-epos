@@ -6,7 +6,7 @@ namespace esas\cmsgate\epos;
 
 use esas\cmsgate\ConfigStorageBuyNow;
 
-class ConfigStorageBuyNowEpos extends ConfigStorageBuyNow
+class  ConfigStorageBuyNowEpos extends ConfigStorageBuyNow
 {
 
     public function getConfigFieldLogin() {

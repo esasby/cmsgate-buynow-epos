@@ -2,6 +2,7 @@
 namespace esas\cmsgate\epos;
 
 use esas\cmsgate\BridgeConnectorBuyNow;
+use esas\cmsgate\epos\view\client\HROFactoryBuyNow;
 use esas\cmsgate\properties\PropertiesBuyNow;
 use PDO;
 

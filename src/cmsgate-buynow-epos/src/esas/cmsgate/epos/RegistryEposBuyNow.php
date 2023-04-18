@@ -10,18 +10,17 @@ namespace esas\cmsgate\epos;
 
 use esas\cmsgate\BridgeConnector;
 use esas\cmsgate\CmsConnectorByNow;
-use esas\cmsgate\ConfigStorageBridge;
-use esas\cmsgate\ConfigStorageBuyNow;
 use esas\cmsgate\descriptors\ModuleDescriptor;
 use esas\cmsgate\descriptors\VendorDescriptor;
 use esas\cmsgate\descriptors\VersionDescriptor;
 use esas\cmsgate\epos\view\client\CompletionPageEpos;
-use esas\cmsgate\protocol\RequestParamsBuyNow;
-use esas\cmsgate\utils\CMSGateException;
-use esas\cmsgate\utils\SessionUtilsBridge;
+use esas\cmsgate\epos\view\client\CompletionPanelEposBuyNow;
+use esas\cmsgate\epos\view\client\HROFactoryBuyNow;
+use esas\cmsgate\epos\view\HROFactoryCmsgateBuyNowEpos;
+use esas\cmsgate\epos\view\HROFactoryEpos;
+use esas\cmsgate\epos\view\HROFactoryEposBuyNow;
 use esas\cmsgate\utils\URLUtils;
 use esas\cmsgate\view\admin\AdminViewFields;
-use esas\cmsgate\view\admin\ConfigFormBridge;
 use esas\cmsgate\view\admin\ConfigFormBuyNow;
 use Exception;
 
@@ -32,6 +31,7 @@ class RegistryEposBuyNow extends RegistryEpos
         $this->cmsConnector = new CmsConnectorByNow();
         $this->paysystemConnector = new PaysystemConnectorEpos();
         $this->registerService(BridgeConnector::BRIDGE_CONNECTOR_SERVICE_NAME, new BridgeConnectorEposBuyNow());
+        $this->registerService(HROFactoryEpos::class, new HROFactoryEposBuyNow());
     }
 
     /**
@@ -69,12 +69,7 @@ class RegistryEposBuyNow extends RegistryEpos
 
     function getUrlWebpay($orderWrapper)
     {
-        $currentURL = URLUtils::getCurrentURLNoParams();
-        $currentURL = str_replace(PATH_INVOICE_ADD, PATH_INVOICE_VIEW, $currentURL);
-        if (strpos($currentURL, PATH_INVOICE_VIEW) !== false)
-            return $currentURL . '?' . RequestParamsBuyNow::ORDER_ID . '=' . SessionUtilsBridge::getOrderCacheUUID();
-        else
-            throw new CMSGateException('Incorrect URL genearation');
+        return URLUtils::getCurrentURLNoParams();
     }
 
     public function createModuleDescriptor()
@@ -82,26 +77,11 @@ class RegistryEposBuyNow extends RegistryEpos
         return new ModuleDescriptor(
             "cmsgate-buynow-epos",
             new VersionDescriptor("1.17.1", "2022-03-28"),
-            "Tilda EPOS",
+            "BuyNow EPOS",
             "https://bitbucket.org/esasby/cmsgate-buynow-epos/src/master/",
             VendorDescriptor::esas(),
             "Выставление пользовательских счетов в ЕРИП"
         );
-    }
-
-    public function getCompletionPanel($orderWrapper)
-    {
-        return new CompletionPanelEposTilda($orderWrapper);
-    }
-
-    /**
-     * @param $orderWrapper
-     * @param $completionPanel
-     * @return CompletionPageEpos
-     */
-    public function getCompletionPage($orderWrapper, $completionPanel)
-    {
-        return new CompletionPageEpos($orderWrapper, $completionPanel);
     }
 
     public function createHooks()
@@ -116,5 +96,9 @@ class RegistryEposBuyNow extends RegistryEpos
 
     public function createProperties() {
         return new PropertiesEposBuyNow();
+    }
+
+    protected function createHROFactory() {
+        return new HROFactoryCmsgateBuyNowEpos();
     }
 }

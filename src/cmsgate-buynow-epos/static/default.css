@@ -1,0 +1,26 @@
+#element-section-header {
+    background: #999966;
+    color: white;
+    /*background: red;*/
+}
+
+#element-header-end-column  a:link {
+    color: white;
+}
+/*#element-section-header-left {*/
+/*    background-image: url("https://cmsgate-test.esas.by/cmsgate-buynow-epos/static/epos_by_white.svg");*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: contain;*/
+
+/*}*/
+
+.btn-success {
+    color: #fff;
+    background-color: #999966;
+    border-color: #999966;
+}
+
+.btn-outline-success {
+    color: #999966;
+    border-color: #999966;
+}
