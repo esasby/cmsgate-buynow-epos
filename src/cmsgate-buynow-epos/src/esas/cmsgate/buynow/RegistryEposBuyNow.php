@@ -6,23 +6,25 @@
  * Time: 12:05
  */
 
-namespace esas\cmsgate\epos;
+namespace esas\cmsgate\buynow;
 
-use esas\cmsgate\BridgeConnector;
-use esas\cmsgate\CmsConnectorByNow;
-use esas\cmsgate\descriptors\ModuleDescriptor;
+use esas\cmsgate\bridge\BridgeConnector;
+use esas\cmsgate\buynow\hro\AdminLoginPageHROTunerBynowEpos;
+use esas\cmsgate\buynow\view\admin\ConfigFormBuyNow;use esas\cmsgate\descriptors\ModuleDescriptor;
 use esas\cmsgate\descriptors\VendorDescriptor;
 use esas\cmsgate\descriptors\VersionDescriptor;
-use esas\cmsgate\epos\view\client\CompletionPageEpos;
-use esas\cmsgate\epos\view\client\CompletionPanelEposBuyNow;
-use esas\cmsgate\epos\view\client\HROFactoryBuyNow;
-use esas\cmsgate\epos\view\HROFactoryCmsgateBuyNowEpos;
-use esas\cmsgate\epos\view\HROFactoryEpos;
-use esas\cmsgate\epos\view\HROFactoryEposBuyNow;
+use esas\cmsgate\epos\ConfigFieldsEpos;
+use esas\cmsgate\epos\hro\client\CompletionPanelEposHRO;
+use esas\cmsgate\epos\hro\client\CompletionPanelEposHRO_v2;
+use esas\cmsgate\epos\hro\sections\FooterSectionCompanyInfoHROTunerEpos;
+use esas\cmsgate\epos\hro\sections\HeaderSectionLogoContactsHROTunerEpos;
+use esas\cmsgate\epos\PaysystemConnectorEpos;
+use esas\cmsgate\epos\RegistryEpos;
+use esas\cmsgate\hro\pages\AdminLoginPageHRO;
+use esas\cmsgate\hro\sections\FooterSectionCompanyInfoHRO;
+use esas\cmsgate\hro\sections\HeaderSectionLogoContactsHRO;
 use esas\cmsgate\utils\URLUtils;
 use esas\cmsgate\view\admin\AdminViewFields;
-use esas\cmsgate\view\admin\ConfigFormBuyNow;
-use Exception;
 
 class RegistryEposBuyNow extends RegistryEpos
 {
@@ -30,8 +32,11 @@ class RegistryEposBuyNow extends RegistryEpos
     {
         $this->cmsConnector = new CmsConnectorByNow();
         $this->paysystemConnector = new PaysystemConnectorEpos();
-        $this->registerService(BridgeConnector::BRIDGE_CONNECTOR_SERVICE_NAME, new BridgeConnectorEposBuyNow());
-        $this->registerService(HROFactoryEpos::class, new HROFactoryEposBuyNow());
+        $this->registerService(BridgeConnector::BRIDGE_CONNECTOR_SERVICE_NAME, new BridgeConnectorBuyNowEpos());
+        $this->getHROManager()->addImplementation(CompletionPanelEposHRO::class, CompletionPanelEposHRO_v2::class);
+        $this->getHROManager()->addTuner(AdminLoginPageHRO::class, AdminLoginPageHROTunerBynowEpos::class);
+        $this->getHROManager()->addTuner(FooterSectionCompanyInfoHRO::class, FooterSectionCompanyInfoHROTunerEpos::class);
+        $this->getHROManager()->addTuner(HeaderSectionLogoContactsHRO::class, HeaderSectionLogoContactsHROTunerEpos::class);
     }
 
     /**
@@ -95,10 +100,7 @@ class RegistryEposBuyNow extends RegistryEpos
     }
 
     public function createProperties() {
-        return new PropertiesEposBuyNow();
+        return new PropertiesBuyNowEpos();
     }
 
-    protected function createHROFactory() {
-        return new HROFactoryCmsgateBuyNowEpos();
-    }
 }

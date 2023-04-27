@@ -1,7 +1,7 @@
 <?php
 
-use esas\cmsgate\controllers\admin\AdminControllerBuyNow;
-use esas\cmsgate\controllers\client\ClientControllerBuyNow;
+use esas\cmsgate\buynow\controllers\admin\AdminControllerBuyNow;
+use esas\cmsgate\buynow\controllers\client\ClientControllerBuyNow;
 use esas\cmsgate\epos\controllers\ControllerEposCallback;
 use esas\cmsgate\utils\Logger as LoggerCms;
 

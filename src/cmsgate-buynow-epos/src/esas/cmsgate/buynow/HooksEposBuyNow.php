@@ -1,14 +1,11 @@
 <?php
+namespace esas\cmsgate\buynow;
 
-
-namespace esas\cmsgate\epos;
-
-
-use esas\cmsgate\BridgeConnector;
-use esas\cmsgate\BridgeConnectorBuyNow;
+use esas\cmsgate\bridge\BridgeConnector;
+use esas\cmsgate\buynow\protocol\RequestParamsBuyNow;
+use esas\cmsgate\epos\HooksEpos;
 use esas\cmsgate\epos\protocol\EposCallbackRq;
 use esas\cmsgate\epos\protocol\EposInvoiceAddRs;
-use esas\cmsgate\protocol\RequestParamsBuyNow;
 use esas\cmsgate\wrappers\OrderWrapper;
 
 class HooksEposBuyNow extends HooksEpos

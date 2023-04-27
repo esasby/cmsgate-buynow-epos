@@ -1,12 +1,9 @@
 <?php
+namespace esas\cmsgate\buynow;
 
+use esas\cmsgate\epos\ConfigFieldsEpos;
 
-namespace esas\cmsgate\epos;
-
-
-use esas\cmsgate\ConfigStorageBuyNow;
-
-class  ConfigStorageBuyNowEpos extends ConfigStorageBuyNow
+class ConfigStorageBuyNowEpos extends ConfigStorageBuyNow
 {
 
     public function getConfigFieldLogin() {

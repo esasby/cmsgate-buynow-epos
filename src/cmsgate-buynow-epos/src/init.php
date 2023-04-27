@@ -1,6 +1,6 @@
 <?php
 use esas\cmsgate\CmsPlugin;
-use esas\cmsgate\epos\RegistryEposBuyNow;
+use esas\cmsgate\buynow\RegistryEposBuyNow;
 
 if (!class_exists("esas\cmsgate\CmsPlugin")) {
     require_once(dirname(dirname(__FILE__)) . '/vendor/esas/cmsgate-core/src/esas/cmsgate/CmsPlugin.php');

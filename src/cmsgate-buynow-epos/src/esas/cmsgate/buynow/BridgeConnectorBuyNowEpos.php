@@ -1,12 +1,11 @@
 <?php
-namespace esas\cmsgate\epos;
+namespace esas\cmsgate\buynow;
 
-use esas\cmsgate\BridgeConnectorBuyNow;
-use esas\cmsgate\epos\view\client\HROFactoryBuyNow;
-use esas\cmsgate\properties\PropertiesBuyNow;
+use esas\cmsgate\buynow\properties\PropertiesBuyNow;
+use esas\cmsgate\buynow\service\MerchantServiceBuyNow;
 use PDO;
 
-class BridgeConnectorEposBuyNow extends BridgeConnectorBuyNow
+class BridgeConnectorBuyNowEpos extends BridgeConnectorBuyNow
 {
     public function getPDO()
     {
@@ -28,6 +27,6 @@ class BridgeConnectorEposBuyNow extends BridgeConnectorBuyNow
     }
 
     protected function createMerchantService() {
-        return new MerchantServiceEposBuyNow();
+        return new MerchantServiceBuyNow();
     }
 }

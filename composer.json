@@ -13,9 +13,9 @@
   ],
   "require": {
     "php": ">= 5.6.0",
-    "esas/cmsgate-epos-lib": "~v1.18.0",
-    "esas/cmsgate-buynow-lib": "~v1.18.3",
-    "esas/cmsgate-core": "~v1.18.1",
+    "esas/cmsgate-epos-lib": "~v2.0.0",
+    "esas/cmsgate-buynow-lib": "~v2.0.0",
+    "esas/cmsgate-core": "~v2.0.0",
     "phpdocumentor/reflection-docblock": "5.3.0",
     "ext-pdo": "*",
     "ext-json": "*"
