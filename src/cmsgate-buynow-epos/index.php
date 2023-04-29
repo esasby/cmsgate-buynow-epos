@@ -13,13 +13,10 @@ $logger = LoggerCms::getLogger('index');
 if (strpos($request, 'admin') !== false) {
     $controller = new AdminControllerBuyNow();
     $controller->process();
-} else if (strpos($request, 'baskets') !== false || strpos($request, 'orders') !== false) {
-    $controller = new ClientControllerBuyNow();
-    $controller->process();
 } elseif (strpos($request, 'callback') !== false) {
     $controller = new ControllerEposCallback();
     $controller->process();
 } else {
-    http_response_code(404);
-    return;
+    $controller = new ClientControllerBuyNow();
+    $controller->process();
 }
