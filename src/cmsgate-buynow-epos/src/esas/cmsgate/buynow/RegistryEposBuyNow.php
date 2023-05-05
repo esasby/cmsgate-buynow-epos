@@ -20,6 +20,7 @@ use esas\cmsgate\epos\hro\sections\FooterSectionCompanyInfoHROTunerEpos;
 use esas\cmsgate\epos\hro\sections\HeaderSectionLogoContactsHROTunerEpos;
 use esas\cmsgate\epos\PaysystemConnectorEpos;
 use esas\cmsgate\epos\RegistryEpos;
+use esas\cmsgate\hro\HROManager;
 use esas\cmsgate\hro\pages\AdminLoginPageHRO;
 use esas\cmsgate\hro\sections\FooterSectionCompanyInfoHRO;
 use esas\cmsgate\hro\sections\HeaderSectionLogoContactsHRO;
@@ -32,11 +33,7 @@ class RegistryEposBuyNow extends RegistryEpos
     {
         $this->cmsConnector = new CmsConnectorByNow();
         $this->paysystemConnector = new PaysystemConnectorEpos();
-        $this->registerService(BridgeConnector::BRIDGE_CONNECTOR_SERVICE_NAME, new BridgeConnectorBuyNowEpos());
-        $this->getHROManager()->addImplementation(CompletionPanelEposHRO::class, CompletionPanelEposHRO_v2::class);
-        $this->getHROManager()->addTuner(AdminLoginPageHRO::class, AdminLoginPageHROTunerBynowEpos::class);
-        $this->getHROManager()->addTuner(FooterSectionCompanyInfoHRO::class, FooterSectionCompanyInfoHROTunerEpos::class);
-        $this->getHROManager()->addTuner(HeaderSectionLogoContactsHRO::class, HeaderSectionLogoContactsHROTunerEpos::class);
+        $this->registerService(BridgeConnector::class, new BridgeConnectorBuyNowEpos());
     }
 
     /**
@@ -47,6 +44,15 @@ class RegistryEposBuyNow extends RegistryEpos
     {
         return parent::getRegistry();
     }
+
+    public function init() {
+        parent::init();
+        HROManager::fromRegistry()->addImplementation(CompletionPanelEposHRO::class, CompletionPanelEposHRO_v2::class);
+        HROManager::fromRegistry()->addTuner(AdminLoginPageHRO::class, AdminLoginPageHROTunerBynowEpos::class);
+        HROManager::fromRegistry()->addTuner(FooterSectionCompanyInfoHRO::class, FooterSectionCompanyInfoHROTunerEpos::class);
+        HROManager::fromRegistry()->addTuner(HeaderSectionLogoContactsHRO::class, HeaderSectionLogoContactsHROTunerEpos::class);
+    }
+
 
     /**
      * @throws \Exception

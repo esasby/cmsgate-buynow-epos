@@ -34,4 +34,12 @@ class PropertiesBuyNowEpos extends PropertiesBuyNow
     public function getDefaultClientUICssLink() {
         return "https://cmsgate-test.esas.by/cmsgate-buynow-epos/static/default.css";
     }
+
+    public function getRecaptchaSecretKey() {
+        return "secret_key";
+    }
+
+    public function getRecaptchaPublicKey() {
+        return "public_key";
+    }
 }
