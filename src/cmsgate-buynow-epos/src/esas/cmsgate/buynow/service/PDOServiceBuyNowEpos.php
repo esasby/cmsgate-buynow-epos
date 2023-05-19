@@ -1,14 +1,17 @@
 <?php
-namespace esas\cmsgate\buynow;
+
+
+namespace esas\cmsgate\buynow\service;
+
 
 use esas\cmsgate\buynow\properties\PropertiesBuyNow;
-use esas\cmsgate\buynow\service\MerchantServiceBuyNow;
+use esas\cmsgate\service\PDOService;
 use PDO;
 
-class BridgeConnectorBuyNowEpos extends BridgeConnectorBuyNow
+class PDOServiceBuyNowEpos extends PDOService
 {
-    public function getPDO()
-    {
+
+    public function getPDO($repositoryClass = null) {
         $opt = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -19,14 +22,5 @@ class BridgeConnectorBuyNowEpos extends BridgeConnectorBuyNow
             PropertiesBuyNow::fromRegistry()->getPDOUsername(),
             PropertiesBuyNow::fromRegistry()->getPDOPassword(),
             $opt);
-    }
-
-    public function isSandbox()
-    {
-        return PropertiesBuyNow::fromRegistry()->isSandbox();
-    }
-
-    protected function createMerchantService() {
-        return new MerchantServiceBuyNow();
     }
 }

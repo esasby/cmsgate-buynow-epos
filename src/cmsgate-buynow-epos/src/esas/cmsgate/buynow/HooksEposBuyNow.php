@@ -1,7 +1,8 @@
 <?php
 namespace esas\cmsgate\buynow;
 
-use esas\cmsgate\bridge\BridgeConnector;
+use esas\cmsgate\bridge\service\OrderService;
+use esas\cmsgate\buynow\dao\BasketBuyNowRepository;
 use esas\cmsgate\buynow\protocol\RequestParamsBuyNow;
 use esas\cmsgate\epos\HooksEpos;
 use esas\cmsgate\epos\protocol\EposCallbackRq;
@@ -12,11 +13,11 @@ class HooksEposBuyNow extends HooksEpos
 {
     public function onCallbackRqRead(EposCallbackRq $rq) {
         parent::onCallbackRqRead($rq);
-        BridgeConnector::fromRegistry()->getOrderCacheService()->loadSessionOrderCacheByExtId($rq->getInvoiceId());
+        OrderService::fromRegistry()->loadSessionOrderByExtId($rq->getInvoiceId());
     }
 
     public function onInvoiceAddSuccess(OrderWrapper $orderWrapper, EposInvoiceAddRs $resp) {
         parent::onInvoiceAddSuccess($orderWrapper, $resp);
-        BridgeConnectorBuyNow::fromRegistry()->getBuyNowBasketRepository()->incrementCheckoutCount(RequestParamsBuyNow::getBasketId());
+        BasketBuyNowRepository::fromRegistry()->incrementCheckoutCount(RequestParamsBuyNow::getBasketId());
     }
 }

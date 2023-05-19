@@ -8,8 +8,11 @@
 
 namespace esas\cmsgate\buynow;
 
-use esas\cmsgate\bridge\BridgeConnector;
+use esas\cmsgate\bridge\service\OrderService;
 use esas\cmsgate\buynow\hro\AdminLoginPageHROTunerBynowEpos;
+use esas\cmsgate\buynow\service\OrderServiceBuyNowEpos;
+use esas\cmsgate\buynow\service\PDOServiceBuyNowEpos;
+use esas\cmsgate\buynow\service\ServiceProviderBuyNow;
 use esas\cmsgate\buynow\view\admin\ConfigFormBuyNow;use esas\cmsgate\descriptors\ModuleDescriptor;
 use esas\cmsgate\descriptors\VendorDescriptor;
 use esas\cmsgate\descriptors\VersionDescriptor;
@@ -24,6 +27,7 @@ use esas\cmsgate\hro\HROManager;
 use esas\cmsgate\hro\pages\AdminLoginPageHRO;
 use esas\cmsgate\hro\sections\FooterSectionCompanyInfoHRO;
 use esas\cmsgate\hro\sections\HeaderSectionLogoContactsHRO;
+use esas\cmsgate\service\PDOService;
 use esas\cmsgate\utils\URLUtils;
 use esas\cmsgate\view\admin\AdminViewFields;
 
@@ -33,7 +37,6 @@ class RegistryEposBuyNow extends RegistryEpos
     {
         $this->cmsConnector = new CmsConnectorByNow();
         $this->paysystemConnector = new PaysystemConnectorEpos();
-        $this->registerService(BridgeConnector::class, new BridgeConnectorBuyNowEpos());
     }
 
     /**
@@ -47,6 +50,11 @@ class RegistryEposBuyNow extends RegistryEpos
 
     public function init() {
         parent::init();
+
+        $this->registerServicesFromProvider(new ServiceProviderBuyNow());
+        $this->registerService(OrderService::class, new OrderServiceBuyNowEpos());
+        $this->registerService(PDOService::class, new PDOServiceBuyNowEpos());
+
         HROManager::fromRegistry()->addImplementation(CompletionPanelEposHRO::class, CompletionPanelEposHRO_v2::class);
         HROManager::fromRegistry()->addTuner(AdminLoginPageHRO::class, AdminLoginPageHROTunerBynowEpos::class);
         HROManager::fromRegistry()->addTuner(FooterSectionCompanyInfoHRO::class, FooterSectionCompanyInfoHROTunerEpos::class);
@@ -108,5 +116,4 @@ class RegistryEposBuyNow extends RegistryEpos
     public function createProperties() {
         return new PropertiesBuyNowEpos();
     }
-
 }

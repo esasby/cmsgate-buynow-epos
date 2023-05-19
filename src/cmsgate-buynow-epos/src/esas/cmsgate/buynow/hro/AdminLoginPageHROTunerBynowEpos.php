@@ -5,7 +5,7 @@ namespace esas\cmsgate\buynow\hro;
 
 
 use esas\cmsgate\bridge\view\client\RequestParamsBridge;
-use esas\cmsgate\buynow\BridgeConnectorBuyNowEpos;
+use esas\cmsgate\buynow\PropertiesBuyNowEpos;
 use esas\cmsgate\Registry;
 use esas\cmsgate\hro\HRO;
 use esas\cmsgate\hro\HROTuner;
@@ -21,7 +21,7 @@ class AdminLoginPageHROTunerBynowEpos implements HROTuner
         return $hroBuilder
             ->setLoginField(RequestParamsBridge::LOGIN_FORM_LOGIN, "Client ID")
             ->setPasswordField(RequestParamsBridge::LOGIN_FORM_PASSWORD, 'Secret')
-            ->setSandbox(BridgeConnectorBuyNowEpos::fromRegistry()->isSandbox())
+            ->setSandbox(PropertiesBuyNowEpos::fromRegistry()->isSandbox())
             ->setMessage("Login to BuyNow " . Registry::getRegistry()->getPaysystemConnector()->getPaySystemConnectorDescriptor()->getPaySystemMachinaName());
     }
 }
