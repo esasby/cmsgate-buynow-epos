@@ -42,4 +42,8 @@ class PropertiesBuyNowEpos extends PropertiesBuyNow
     public function getRecaptchaPublicKey() {
         return "public_key";
     }
+
+    public function getStorageDir() {
+        return "/opt/cmsgate/storage";
+    }
 }
